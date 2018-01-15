@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Message Board</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container"><br>
+        <div class="jumbotron">
+            <h1>The Dojo Message Board</h1>
+            <form action="/process" method="POST">
+                <p>Name: <input class="form-control" type="text" name="name"></p>
+                <p>Message: <textarea name="message" class="form-control" cols="30" rows="3"></textarea></p>
+                <input class="btn btn-danger" type="submit" value="Post">
+            </form>
+        </div>
+        <div class="container">
+            <div class="container">
+                <h1>Messages</h1><br>
+                    <% for(let message of messages){%>
+                    <h4>Name: <%= message.name %></h4>
+                    <h4>Message: <%= message.message %></h4>
+                    <div class="container">
+                    <% for(let comment of message.comments){%>
+                        <h4>Name: <%= comment.name %></h4>
+                        <h4>Comment: <%= comment.comment %></h4>
+                        <hr>
+                    <%}%>
+                    <form action="/processcomment/<%=message._id%>" method="POST">
+                        <p>Name: <input class="form-control" type="text" name="name"></p>
+                        <p>Comment: <textarea name="message" class="form-control" cols="20" rows="2"></textarea></p>
+                        <input class="btn btn-danger" type="submit" value="Post Comment">
+                    </form>
+                    <hr>
+                <%}%>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
